@@ -1,9 +1,15 @@
+---
+const res = await fetch("https://dummyjson.com/products/158");
+const product = await res.json();
+---
+
 <meta charset="UTF-8" />
 
 <style>
   img {
     width: 100%;
     display: block;
+    border-radius: 10px;
   }
 
   section {
@@ -15,6 +21,8 @@
   div {
     margin: 5px;
     width: 45%;
+    background-color: #f6f5f3;
+    border-radius: 10px;
   }
 
   section,
@@ -45,17 +53,12 @@
 
 <section>
   <div>
-    <a href="/productlist">
-      <h2>Men</h2>
-      <h3>Shop now</h3>
-      <img src="/img.isa/mand.webp" alt="Billede af mand" />
-    </a>
+    <img src={product.thumbnail} alt={product.solbriller} />
   </div>
   <div>
-    <a href="/productlist">
-      <h2>Woman</h2>
-      <h3>Shop now</h3>
-      <img src="/img.isa/dame.webp" alt="Billede af dame" />
-    </a>
+    <img
+      src="/img.isa/solbrille.dame.webp"
+      alt="Billede af dame med solrbiller"
+    />
   </div>
 </section>
