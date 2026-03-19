@@ -1,0 +1,395 @@
+---
+const res = await fetch("https://dummyjson.com/products/173");
+const product = await res.json();
+---
+
+<!-- HTML -->
+<section class="product-wrapper">
+  <section class="product-page">
+    <div class="gallery">
+      <div class="thumbs">
+        {
+          product.images.map((image, index) => (
+            <button
+              class={`thumb ${index === 0 ? "active" : ""}`}
+              type="button"
+              data-image={image}
+              aria-label={`View image ${index + 1}`}
+            >
+              <img src={image} alt={`${product.title} - view ${index + 1}`} />
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="main-image">
+        <img
+          id="mainProductImage"
+          src={product.images[0]}
+          alt={product.title}
+        />
+      </div>
+    </div>
+
+    <div class="info">
+      <h1>{product.title}</h1>
+
+      <p class="price">{product.price} kr</p>
+
+      <h2>Luxurious and high-quality leather bag</h2>
+
+      <p class="description">{product.description}</p>
+
+      <p class="label">Colors</p>
+
+      <div class="colors">
+        <button
+          class="color brown active"
+          type="button"
+          aria-label="Brown"
+          aria-pressed="true"></button>
+        <button
+          class="color red"
+          type="button"
+          aria-label="Red"
+          aria-pressed="false"></button>
+        <button
+          class="color darkbrown"
+          type="button"
+          aria-label="Dark brown"
+          aria-pressed="false"></button>
+        <button
+          class="color grey"
+          type="button"
+          aria-label="Grey"
+          aria-pressed="false"></button>
+        <button
+          class="color black"
+          type="button"
+          aria-label="Black"
+          aria-pressed="false"></button>
+      </div>
+
+      <p class="label">Size</p>
+
+      <div class="sizes">
+        <button class="size-btn" type="button" aria-pressed="false">S</button>
+        <button class="size-btn active" type="button" aria-pressed="true"
+          >M</button
+        >
+        <button class="size-btn" type="button" aria-pressed="false">L</button>
+      </div>
+
+      <button class="cart" type="button">ADD TO CART</button>
+
+      <div class="extra">
+        <p>+ Find in store</p>
+        <p>+ Details & Description</p>
+        <p>+ Delivery & Returns</p>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- CSS -->
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap");
+
+  * {
+    box-sizing: border-box;
+  }
+
+  button {
+    font: inherit;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .product-wrapper {
+    background: #ffffff;
+    padding: 40px;
+  }
+
+  .product-page {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 42px;
+    font-family: "Manrope", sans-serif;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 18px;
+  }
+
+  .thumbs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .thumb {
+    width: 68px;
+    height: 92px;
+    background: #f6f5f3;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    padding: 8px;
+  }
+
+  .thumb.active {
+    border-color: #000;
+  }
+
+  .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .main-image {
+    background: #f6f5f3;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 36px;
+    border-radius: 6px;
+  }
+
+  .main-image img {
+    width: 100%;
+    max-width: 420px;
+    object-fit: contain;
+  }
+
+  .info h1 {
+    font-family: "Playfair Display", serif;
+    font-size: 36px;
+    font-weight: 400;
+    margin: 0 0 10px;
+    line-height: 1.1;
+  }
+
+  .price {
+    font-size: 14px;
+    margin: 0 0 45px;
+  }
+
+  .info h2 {
+    font-size: 18px;
+    margin-bottom: 18px;
+  }
+
+  .description {
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 34px;
+    max-width: 520px;
+  }
+
+  .label {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .colors {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .color {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    position: relative;
+  }
+
+  .color.active::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 26px;
+    height: 2px;
+    background: #000;
+  }
+
+  .brown {
+    background: #9a5c38;
+  }
+  .red {
+    background: #8b4b52;
+  }
+  .darkbrown {
+    background: #5a2d14;
+  }
+  .grey {
+    background: #666;
+  }
+  .black {
+    background: #000;
+  }
+
+  .sizes {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+
+  .size-btn {
+    width: 68px;
+    height: 42px;
+    border: 1px solid #000;
+    background: #fff;
+    font-size: 14px;
+  }
+
+  .size-btn.active {
+    background: #000;
+    color: #fff;
+  }
+
+  .cart {
+    width: 100%;
+    height: 52px;
+    border: 1px solid #000;
+    background: #fff;
+    font-size: 12px;
+    margin-bottom: 34px;
+  }
+
+  .cart:hover {
+    background: #000;
+    color: #fff;
+  }
+
+  .extra p {
+    border-top: 1px solid #bbb;
+    padding: 16px 0;
+    font-size: 14px;
+    margin: 0;
+  }
+
+  .extra p:last-child {
+    border-bottom: 1px solid #bbb;
+  }
+  /* MOBIL */
+
+  @media (max-width: 900px) {
+    .product-wrapper {
+      padding: 10px;
+    }
+    .product-page {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .gallery {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .thumbs {
+      flex-direction: row;
+      gap: 10px;
+      order: 2;
+    }
+    .thumb {
+      width: 58px;
+      height: 76px;
+      padding: 6px;
+    }
+    .main-image {
+      min-height: auto;
+      padding: 20px;
+      order: 1;
+    }
+    .main-image img {
+      max-width: 260px;
+    }
+    .info h1 {
+      font-size: 26px;
+    }
+    .info h2,
+    .description {
+      display: none;
+    }
+    .colors {
+      margin-bottom: 25px;
+      gap: 12px;
+    }
+    .color {
+      width: 28px;
+      height: 28px;
+    }
+    .color.active::after {
+      width: 20px;
+      bottom: -8px;
+    }
+    .sizes {
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+    .size-btn {
+      width: 48px;
+      height: 28px;
+      font-size: 11px;
+    }
+    .cart {
+      margin-bottom: 25px;
+    }
+    .extra p {
+      font-size: 12px;
+      padding: 14px 0;
+    }
+  }
+</style>
+
+<!-- JavaScript -->
+
+<script>
+  const mainImage = document.querySelector("#mainProductImage");
+  const thumbnails = document.querySelectorAll(".thumb");
+
+  thumbnails.forEach((button) => {
+    button.addEventListener("click", () => {
+      const newImage = button.getAttribute("data-image");
+      if (mainImage instanceof HTMLImageElement && newImage) {
+        mainImage.src = newImage;
+      }
+      thumbnails.forEach((t) => t.classList.remove("active"));
+      button.classList.add("active");
+    });
+  });
+
+  const sizes = document.querySelectorAll(".size-btn");
+
+  sizes.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      sizes.forEach((s) => {
+        s.classList.remove("active");
+        s.setAttribute("aria-pressed", "false");
+      });
+      btn.classList.add("active");
+      btn.setAttribute("aria-pressed", "true");
+    });
+  });
+
+  const colors = document.querySelectorAll(".color");
+
+  colors.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      colors.forEach((c) => {
+        c.classList.remove("active");
+        c.setAttribute("aria-pressed", "false");
+      });
+      btn.classList.add("active");
+      btn.setAttribute("aria-pressed", "true");
+    });
+  });
+</script>
