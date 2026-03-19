@@ -1,0 +1,47 @@
+---
+const res = await fetch('https://dummyjson.com/products/category/womens-bags');
+const data = await res.json();
+const products = data.products.slice(0, 5);
+---
+
+<div class="grid">
+  {products.map((product, index) => (
+    <div class={`card ${index !== 0 ? 'hide-mobile' : ''}`}>
+      <img src={product.thumbnail} alt={product.title} />
+      <p>{product.title}</p>
+    </div>
+  ))}
+</div>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    width: 100%;
+    
+  }
+
+  .card {
+    text-align: center;
+    background-color: #F6F5F3
+    ;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  
+   @media (max-width: 600px) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    
+    .grid > .card:nth-child(n+4) {
+      display: none;
+    }
+  }
+</style>
