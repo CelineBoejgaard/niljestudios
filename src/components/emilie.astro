@@ -26,7 +26,9 @@ const { products } = Astro.props;
         markup += `
         <article class="produkt_kort">
           <div class="billede_wrap">
+            <a href="product.astro">
             <img src="${product.thumbnail}" alt="${product.title}" />
+            <a/>
           </div>
           <h3>${product.title}</h3>
           <p class="pris">${product.price} kr</p>
